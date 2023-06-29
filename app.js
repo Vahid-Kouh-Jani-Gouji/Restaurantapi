@@ -30,7 +30,7 @@ app.post('/put',(req,res)=>{
           put_resturant.push(address); 
           put_resturant.push(kategory); 
         for (var k=0 ; k<resturant_list.length ; k++){
-          if (resturant_list[k].includes(put_resturant)) {
+          if (resturant_list[k][0].includes(put_resturant[0])) {
             
             res.status(400).send('Duplicate item');
           } 
@@ -45,6 +45,8 @@ app.post('/put',(req,res)=>{
           
              
 });
+
+
 
 app.get('/delete',(req,res)=>{
          var name_delete = req.query.index ;
