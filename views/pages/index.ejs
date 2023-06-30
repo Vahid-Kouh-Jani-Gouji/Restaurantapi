@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="https://sdk.amazonaws.com/js/aws-sdk-2.1407.0.min.js"></script>
     <!-- <link rel="stylesheet" href="./style.css"> -->
     
  
@@ -14,49 +15,7 @@
           <title>Document</title>
 </head>
 <body>
-  <ul>
-    <% for(let i = 0; i < resturant_list.length; i++) { %>
-      <li>
-        <%= resturant_list[i] %>
-        <form action="/delete" method="GET" style="display: inline;" onclick="return confirm ('Are you sure to Delete')">
-          <input type="hidden" name="index" value="<%= i %>">
-          <button type="submit">Delete</button>
-        </form>
-        <button class="edit-button" name="modal" data-toggle="modal" data-target="#editModal<%= i %>">Edit</button>
-
-         <!-- Modal -->
-        <div class="modal fade" id="editModal<%= i %>" role="dialog" >
-          <div class="modal-dialog">
-          
-            <!-- Modal content-->
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Edit form</h4>
-              </div>
-              <div class="modal-body">
-                <p>please enter all fields</p>
-                <form id="editForm" action="/edit" method="POST">
-                  <input type="hidden" name="indexmodal" value="<%= i %>">
-                  <label for="name">name</label>
-                  <input type="text" name="name" id="editText" required>
-                  <label for="address">Adress</label>
-                  <input type="text" name="address" id="editText" required>
-                  <label for="kategory">Kategory</label>
-                  <input type="text" name="kategory" id="editText" required>
-                  <button type="submit">Save</button>
-                </form>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-              </div>
-            </div>
-            
-          </div>
-        </div>
-      </li>
-      <% } %> 
-  </ul>
+    
 
   <!-- Modal -->
 <!-- <div id="editModal" class="modal">
@@ -79,10 +38,35 @@
           <form action="/put" method="post">
              Name: <input name="name" type="text" required/> <br />
             Adress: <input name="address" type="text" required/> <br />
-            Kategory: <input  name="kategory" type="text"required> <br>
+            ID: <input  name="id" type="text"required> <br>
             <button type="submit"> Put</button><br>
           </form><br>
 
+          <ul>
+            <%  restaurant_items.forEach(function(item) { %>
+              
+                       
+              <li>
+                <%=item.id.S %>
+              </li>
+              <li><%=item.address.S %></li>
+              <li><%=item.name.S%></li>
+              <% }) %> 
+          </ul> 
+
+          <form action="/update" method="post">
+            Name: <input name="name" type="text" /> <br />
+           Adress: <input name="address" type="text" /> <br />
+          id: <input  name="id" type="text"> <br>
+         <button type="submit"> Edit</button><br>
+         </form><br>
+
+         <form action="/delete" method="post">
+        
+            id: <input  name="id" type="text"> <br>
+                <button type="submit"> delete</button><br>
+        </form><br>
+ 
           <!-- <form action="/delete" method="get">
             Name: <input name="name" type="text" /> <br /> -->
            <!-- Adress: <input name="address" type="text" /> <br />
